@@ -7,7 +7,7 @@ const BIKES=[
  {n:"Volt E1",c:"Electric",cc:0,k:"120 km range",p:135000,col:"#5eead4"}
 ];
 const $=id=>document.getElementById(id);
-const inr=n=>"₹"+Math.round(n).toLocaleString("en-IN");
+const inr=n=>"\u20B9"+Math.round(n).toLocaleString("en-IN");
 let cat="All",cur=null;
 
 function chips(){
@@ -29,3 +29,33 @@ function grid(){
     const sp=c.querySelectorAll(".specs b");
     sp[0].textContent=b.cc?b.cc+" cc":"Electric";sp[1].textContent=b.k;
     c.querySelector(".price").textContent=inr(b.p);
+    const btn=document.createElement("button");btn.className="btn";btn.textContent="Details & EMI";
+    btn.onclick=()=>openD(b);c.querySelector(".row").append(btn);
+    g.append(c);
+  });
+}
+function emi(){
+  const d=+$("down").value,n=+$("ten").value,P=cur.p*(1-d/100),r=0.095/12;
+  $("down-v").textContent=d+"% ("+inr(cur.p*d/100)+")";
+  const e=d===100?0:P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+  $("emi").textContent=inr(e)+" / month";
+  $("emi-note").textContent="Loan "+inr(P)+" at 9.5% for "+n+" months (approx.)";
+}
+function openD(b){
+  cur=b;$("d-name").textContent=b.n;
+  $("d-sub").textContent=b.c+" \u00B7 "+(b.cc?b.cc+" cc":"Electric")+" \u00B7 "+b.k+" \u00B7 "+inr(b.p);
+  $("ok").textContent="";$("nm").value="";$("ph").value="";
+  emi();$("dlg").showModal();
+}
+$("down").oninput=emi;$("ten").onchange=emi;
+$("close").onclick=()=>$("dlg").close();
+$("book").onclick=()=>{
+  const n=$("nm").value.trim(),p=$("ph").value.trim();
+  $("ok").style.color=(n&&/^[0-9+\s-]{8,15}$/.test(p))?"#7fd99a":"#ff9a9a";
+  $("ok").textContent=(n&&/^[0-9+\s-]{8,15}$/.test(p))
+    ?"Thanks "+n+"! We'll call you to confirm your "+cur.n+" test ride."
+    :"Enter your name and a valid phone number.";
+};
+$("navride").onclick=e=>{e.preventDefault();openD(BIKES[0])};
+$("sort").onchange=grid;
+chips();grid();
