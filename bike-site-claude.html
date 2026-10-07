@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Torq Motors — Ride your way</title>
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#0f1214;--panel:#181c20;--line:#2a3036;--ink:#f1f1ee;--mute:#9aa1a8;--acc:#e63946;--acc-ink:#fff;
+  --font:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--font)}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.logo{font-weight:800;font-size:1.3rem;letter-spacing:.02em}.logo i{color:var(--acc);font-style:normal}
+nav a{color:var(--mute);text-decoration:none;margin-left:20px}
+nav a:hover{color:var(--ink)}
+.hero{padding:60px 0 70px;display:grid;gap:30px;align-items:center}
+h1{font-size:clamp(2.6rem,10vw,5.5rem);line-height:.98;margin:0 0 18px;letter-spacing:-.03em;font-weight:800}
+h1 em{font-style:normal;color:var(--acc)}
+.hero p{color:var(--mute);font-size:1.1rem;max-width:46ch;margin:0 0 26px}
+.btn{display:inline-block;background:var(--acc);color:var(--acc-ink);border:0;border-radius:10px;padding:14px 26px;font:600 1rem var(--font);cursor:pointer;text-decoration:none}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.hero svg{width:100%;max-width:460px;justify-self:center}
+section{padding:54px 0}
+h2{font-size:clamp(1.8rem,5vw,2.6rem);margin:0 0 20px;letter-spacing:-.02em}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px;align-items:center}
+.chip{background:transparent;color:var(--mute);border:1px solid var(--line);border-radius:999px;padding:8px 16px;font:inherit;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:var(--acc-ink);font-weight:600}
+select,input{font:inherit;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%}
+.tools select{width:auto;margin-left:auto}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(270px,1fr))}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;flex-direction:column}
+.card svg{width:100%;height:110px;margin-bottom:10px}
+.card h3{margin:0;font-size:1.25rem}
+.sub{color:var(--mute);font-size:.9rem;margin:2px 0 10px}
+.specs{display:flex;gap:14px;font-size:.88rem;color:var(--mute);margin-bottom:14px}
+.specs b{color:var(--ink)}
+.card .row{display:flex;justify-content:space-between;align-items:center;margin-top:auto}
+.price{font-weight:700;font-size:1.15rem}
+.card .btn{padding:9px 16px;font-size:.92rem}
+.why{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.why div{border-top:2px solid var(--acc);padding-top:12px}
+.why h3{margin:0 0 4px}.why p{margin:0;color:var(--mute)}
+dialog{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:18px;padding:22px;width:min(520px,94vw);max-height:92vh}
+dialog::backdrop{background:rgba(0,0,0,.65)}
+dialog h2{font-size:1.6rem;margin:0 0 4px}
+label{display:block;font-size:.88rem;color:var(--mute);margin:12px 0 4px}
+.emi{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px;margin:14px 0;text-align:center}
+.emi b{display:block;font-size:2rem}
+.emi span{color:var(--mute);font-size:.88rem}
+.acts{display:flex;gap:10px;justify-content:flex-end;margin-top:16px}
+#ok{color:#7fd99a;margin-top:12px;min-height:1.4em}
+footer{border-top:1px solid var(--line);padding:26px 0;color:var(--mute);font-size:.88rem}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+@media(min-width:800px){.hero{grid-template-columns:1.1fr 1fr}}
+@media(max-width:520px){nav a{margin-left:12px}.tools select{margin-left:0;width:100%}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="bike" viewBox="0 0 200 110">
+    <g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="42" cy="72" r="26"/><circle cx="160" cy="72" r="26"/>
+      <path d="M42 72 L80 72 L112 40 L150 40 L160 72"/>
+      <path d="M80 72 L98 50 L124 50"/>
+      <path d="M150 40 L142 24 L156 22"/>
+    </g>
+    <path d="M86 36 Q104 22 132 34 L124 46 L96 46 Z" fill="currentColor"/>
+    <rect x="60" y="30" width="34" height="9" rx="4" fill="currentColor" opacity=".6"/>
+  </symbol>
+</svg>
+
+<div class="wrap">
+  <nav>
+    <div class="logo">TORQ<i>.</i></div>
+    <div><a href="#models">Models</a><a href="#why">Why Torq</a><a href="#" id="navride">Test ride</a></div>
+  </nav>
+
+  <header class="hero">
+    <div>
+      <h1>Ride <em>your</em> way.</h1>
+      <p>Commuters, sports bikes, cruisers and electric. Compare models, calculate your EMI and book a test ride in minutes.</p>
+      <a class="btn" href="#models">Explore bikes</a>
+    </div>
+    <svg style="color:var(--acc)" viewBox="0 0 200 110" role="img" aria-label="Motorcycle illustration"><use href="#bike"/></svg>
+  </header>
+
+  <section id="models">
+    <h2>Our lineup</h2>
+    <div class="tools">
+      <div id="chips" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+      <select id="sort" aria-label="Sort bikes">
+        <option value="low">Price: low to high</option>
+        <option value="high">Price: high to low</option>
+        <option value="cc">Engine power</option>
+      </select>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section id="why">
+    <h2>Why Torq</h2>
+    <div class="why">
+      <div><h3>5-year warranty</h3><p>On engine and frame, on every model.</p></div>
+      <div><h3>Easy finance</h3><p>Low down payment and EMI plans up to 5 years.</p></div>
+      <div><h3>Free first service</h3><p>Pick-up and drop at your doorstep.</p></div>
+    </div>
+  </section>
+
+  <footer>Torq Motors is a sample brand. All models, prices and specs are placeholders.</footer>
+</div>
+
+<dialog id="dlg">
+  <h2 id="d-name"></h2>
+  <div class="sub" id="d-sub"></div>
+  <div class="emi"><b id="emi">—</b><span id="emi-note"></span></div>
+  <label for="down">Down payment: <span id="down-v"></span></label>
+  <input id="down" type="range" min="0" max="50" step="5" value="20">
+  <label for="ten">Tenure</label>
+  <select id="ten"><option value="12">12 months</option><option value="24">24 months</option><option value="36" selected>36 months</option><option value="48">48 months</option><option value="60">60 months</option></select>
+  <label for="nm">Book a test ride</label>
+  <input id="nm" placeholder="Your name" autocomplete="name">
+  <input id="ph" type="tel" placeholder="Phone number" style="margin-top:8px" autocomplete="tel">
+  <div id="ok" role="status"></div>
+  <div class="acts">
+    <button class="btn ghost" id="close">Close</button>
+    <button class="btn" id="book">Book test ride</button>
+  </div>
+</dialog>
+
+<script>
+const BIKES=[
+ {n:"Zephyr 125",c:"Commuter",cc:125,k:"65 kmpl",p:89000,col:"#4aa3ff"},
+ {n:"Strider 160",c:"Commuter",cc:160,k:"55 kmpl",p:124000,col:"#7fd99a"},
+ {n:"Vortex 200",c:"Sports",cc:200,k:"38 kmpl",p:159000,col:"#ffb454"},
+ {n:"Apex R 300",c:"Sports",cc:300,k:"30 kmpl",p:215000,col:"#e63946"},
+ {n:"Outlaw 350",c:"Cruiser",cc:350,k:"35 kmpl",p:198000,col:"#c9a15b"},
+ {n:"Volt E1",c:"Electric",cc:0,k:"120 km range",p:135000,col:"#5eead4"}
+];
+const $=id=>document.getElementById(id);
+const inr=n=>"₹"+Math.round(n).toLocaleString("en-IN");
+let cat="All",cur=null;
+
+function chips(){
+  const b=$("chips");b.textContent="";
+  ["All","Commuter","Sports","Cruiser","Electric"].forEach(n=>{
+    const x=document.createElement("button");x.className="chip";x.textContent=n;
+    x.setAttribute("aria-pressed",String(n===cat));x.onclick=()=>{cat=n;chips();grid()};b.append(x)});
+}
+function grid(){
+  let r=BIKES.filter(b=>cat==="All"||b.c===cat);
+  const s=$("sort").value;
+  r.sort((a,b)=>s==="low"?a.p-b.p:s==="high"?b.p-a.p:b.cc-a.cc);
+  const g=$("grid");g.textContent="";
+  r.forEach(b=>{
+    const c=document.createElement("article");c.className="card";
+    c.innerHTML='<svg style="color:'+b.col+'" viewBox="0 0 200 110" aria-hidden="true"><use href="#bike"/></svg><h3></h3><div class="sub"></div><div class="specs"><span><b></b> engine</span><span><b></b></span></div><div class="row"><span class="price"></span></div>';
+    c.querySelector("h3").textContent=b.n;
+    c.querySelector(".sub").textContent=b.c;
+    const sp=c.querySelectorAll(".specs b");
+    sp[0].textContent=b.cc?b.cc+" cc":"Electric";sp[1].textContent=b.k;
+    c.querySelector(".price").textContent=inr(b.p);
+    const btn=document.createElement("button");btn.className="btn";btn.textContent="Details & EMI";
+    btn.onclick=()=>openD(b);c.querySelector(".row").append(btn);
+    g.append(c);
+  });
+}
+function emi(){
+  const d=+$("down").value,n=+$("ten").value,P=cur.p*(1-d/100),r=0.095/12;
+  $("down-v").textContent=d+"% ("+inr(cur.p*d/100)+")";
+  const e=d===100?0:P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+  $("emi").textContent=inr(e)+" / month";
+  $("emi-note").textContent="Loan "+inr(P)+" at 9.5% for "+n+" months (approx.)";
+}
+function openD(b){
+  cur=b;$("d-name").textContent=b.n;
+  $("d-sub").textContent=b.c+" · "+(b.cc?b.cc+" cc":"Electric")+" · "+b.k+" · "+inr(b.p);
+  $("ok").textContent="";$("nm").value="";$("ph").value="";
+  emi();$("dlg").showModal();
+}
+$("down").oninput=emi;$("ten").onchange=emi;
+$("close").onclick=()=>$("dlg").close();
+$("book").onclick=()=>{
+  const n=$("nm").value.trim(),p=$("ph").value.trim();
+  $("ok").style.color=(n&&/^[0-9+\s-]{8,15}$/.test(p))?"#7fd99a":"#ff9a9a";
+  $("ok").textContent=(n&&/^[0-9+\s-]{8,15}$/.test(p))
+    ?"Thanks "+n+"! We'll call you to confirm your "+cur.n+" test ride."
+    :"Enter your name and a valid phone number.";
+};
+$("navride").onclick=e=>{e.preventDefault();openD(BIKES[0])};
+$("sort").onchange=grid;
+chips();grid();
+</script>
+</body>
+</html>
